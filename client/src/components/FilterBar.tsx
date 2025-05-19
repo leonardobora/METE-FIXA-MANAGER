@@ -7,7 +7,7 @@ interface FilterBarProps {
   setCurrentFilter: (filter: FilterType) => void;
 }
 
-export const FilterBar: FC<FilterBarProps> = ({ currentFilter, setCurrentFilter }) => {
+const FilterBar: FC<FilterBarProps> = ({ currentFilter, setCurrentFilter }) => {
   return (
     <Tabs value={currentFilter} className="w-full">
       <TabsList className="bg-[#132f61] border border-[#1e3c70] w-full flex overflow-x-auto">
@@ -50,3 +50,5 @@ export const FilterBar: FC<FilterBarProps> = ({ currentFilter, setCurrentFilter 
     </Tabs>
   );
 };
+
+export default FilterBar;

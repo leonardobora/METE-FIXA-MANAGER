@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { Guest, FilterType } from "@/types/Guest";
-import GuestCard from "./GuestCard";
-import EmptyState from "./EmptyState";
-import { Search } from "lucide-react";
+import { type FilterType } from "@shared/schema";
+import GuestCard from "@/components/GuestCard";
+import EmptyState from "@/components/EmptyState";
 
 interface GuestListProps {
-  guests: Guest[];
+  guests: any[];
   searchQuery: string;
   currentFilter: FilterType;
   onEdit: (id: string) => void;
@@ -23,33 +22,35 @@ const GuestList: FC<GuestListProps> = ({
   onCheckIn,
   onAddFirstGuest
 }) => {
-  const filteredGuests = guests.filter(guest => {
-    // Search filter
-    const matchesSearch = guest.name.toLowerCase().includes(searchQuery.toLowerCase());
-    if (!matchesSearch) return false;
-    
-    // Category filter
+  // Filtrar por busca
+  const filteredBySearch = guests.filter(guest => 
+    guest.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  // Filtrar por tipo
+  const filteredGuests = filteredBySearch.filter(guest => {
     if (currentFilter === "all") return true;
     if (currentFilter === "entered") return guest.entered;
     return guest.ticketType === currentFilter;
   });
-
-  if (guests.length === 0) {
-    return <EmptyState onAddFirstGuest={onAddFirstGuest} />;
-  }
-
+  
   if (filteredGuests.length === 0) {
+    if (guests.length === 0) {
+      return <EmptyState onAddFirstGuest={onAddFirstGuest} />;
+    }
+    
     return (
-      <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-        <Search className="h-16 w-16 text-gray-600 mb-4" />
-        <h3 className="font-semibold text-xl mb-2">Nenhum resultado</h3>
-        <p className="text-gray-400">Ajuste seus filtros ou faça uma nova busca</p>
+      <div className="text-center py-8 bg-[#132f61] rounded-lg border border-[#1e3c70]">
+        <p className="text-gray-300 mb-2">Nenhum convidado encontrado</p>
+        <p className="text-gray-400 text-sm">
+          Tente modificar os filtros ou a busca
+        </p>
       </div>
     );
   }
-
+  
   return (
-    <div className="py-2">
+    <div className="space-y-4">
       {filteredGuests.map(guest => (
         <GuestCard 
           key={guest.id}

@@ -1,105 +1,102 @@
 import { FC } from "react";
-import { Guest } from "@/types/Guest";
-import { Pencil, Trash2, Check } from "lucide-react";
+import { Check, Clock, Edit, Trash, User } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface GuestCardProps {
-  guest: Guest;
+  guest: any;
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
   onCheckIn: (id: string) => void;
 }
 
 const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) => {
-  const formatDate = (timestamp: number) => {
-    const date = new Date(timestamp);
-    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+  // Formatar data/hora
+  const formatDateTime = (timestamp: number) => {
+    if (!timestamp) return "Não entrou";
+    
+    return new Date(timestamp).toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
-
-  const formatTime = (timestamp: number) => {
-    const date = new Date(timestamp);
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-  };
-
-  // Ticket type styling
-  const getTicketTypeStyle = () => {
-    switch (guest.ticketType) {
-      case "pista":
-        return "bg-[#FF2A6D] bg-opacity-20 text-[#FF2A6D] border-[#FF2A6D] shadow-neon-pink";
+  
+  const getTicketTypeBadge = (type: string) => {
+    switch (type) {
       case "vip":
-        return "bg-[#B026FF] bg-opacity-20 text-[#B026FF] border-[#B026FF] shadow-neon-purple";
+        return <Badge className="bg-[#AAFF28] text-[#081b42]">VIP</Badge>;
+      case "pista":
+        return <Badge className="bg-[#3B82F6]">Pista</Badge>;
       case "cortesia":
-        return "bg-[#FFD600] bg-opacity-20 text-[#FFD600] border-[#FFD600]";
+        return <Badge className="bg-purple-500">Cortesia</Badge>;
       default:
-        return "";
+        return <Badge>Desconhecido</Badge>;
     }
   };
-
+  
   return (
-    <div className="guest-card fade-in mb-3 bg-[#0D2818] bg-opacity-80 rounded-xl p-4 shadow-lg border border-gray-800">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-semibold text-lg">{guest.name}</h3>
-          <div className="flex items-center mt-1">
-            <span className={`ticket-type-badge inline-block px-2 py-0.5 text-xs rounded-md ${getTicketTypeStyle()} mr-2`}>
-              {guest.ticketType.charAt(0).toUpperCase() + guest.ticketType.slice(1)}
-            </span>
-            {guest.entered ? (
-              <span className="text-[#00E676] text-sm flex items-center">
-                <Check className="h-4 w-4 mr-1" />
-                Entrada confirmada
-              </span>
-            ) : (
-              <span className="text-gray-400 text-sm">Aguardando entrada</span>
+    <Card className="bg-[#132f61] border-[#1e3c70] overflow-hidden hover:border-[#3B82F6] transition-all duration-300">
+      <div className={`h-1 ${guest.entered ? 'bg-[#AAFF28]' : 'bg-[#3B82F6]'}`}></div>
+      <CardContent className="p-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <h3 className="font-bold text-white">{guest.name}</h3>
+              {getTicketTypeBadge(guest.ticketType)}
+              {guest.entered && (
+                <Badge className="bg-[#AAFF28] text-[#081b42]">
+                  <Check className="w-3 h-3 mr-1" /> Entrou
+                </Badge>
+              )}
+            </div>
+            
+            <div className="flex flex-col text-sm text-gray-400 gap-1">
+              {guest.observations && (
+                <p className="text-gray-300">{guest.observations}</p>
+              )}
+              
+              <div className="flex items-center">
+                <Clock className="w-4 h-4 mr-1" />
+                {guest.entered 
+                  ? `Entrada às ${formatDateTime(guest.entryTime)}` 
+                  : "Ainda não entrou"}
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2 self-end md:self-auto">
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28] p-2 h-auto"
+              onClick={() => onEdit(guest.id)}
+            >
+              <Edit className="w-4 h-4" />
+            </Button>
+            
+            <Button
+              size="sm"
+              variant="outline"
+              className="border-red-500 text-red-500 hover:text-red-400 hover:border-red-400 p-2 h-auto"
+              onClick={() => onDelete(guest.id)}
+            >
+              <Trash className="w-4 h-4" />
+            </Button>
+            
+            {!guest.entered && (
+              <Button
+                size="sm"
+                className="bg-[#AAFF28] text-[#081b42] hover:bg-[#88cc20] px-3 py-1 h-9"
+                onClick={() => onCheckIn(guest.id)}
+              >
+                <Check className="w-4 h-4 mr-1" /> Check-in
+              </Button>
             )}
           </div>
         </div>
-        <div className="flex">
-          <button 
-            onClick={() => onEdit(guest.id)} 
-            className="p-2 text-gray-400 hover:text-white transition-colors"
-            aria-label="Editar convidado"
-          >
-            <Pencil className="h-5 w-5" />
-          </button>
-          <button 
-            onClick={() => onDelete(guest.id)} 
-            className="p-2 text-gray-400 hover:text-[#FF3D00] transition-colors"
-            aria-label="Remover convidado"
-          >
-            <Trash2 className="h-5 w-5" />
-          </button>
-        </div>
-      </div>
-      
-      {guest.observations && (
-        <div className="mt-3 text-sm text-gray-300">
-          <p className="italic">{guest.observations}</p>
-        </div>
-      )}
-      
-      <div className="mt-3 pt-3 border-t border-gray-700 flex justify-between items-center">
-        <div className="text-xs text-gray-400">
-          {guest.entered 
-            ? `Entrada: ${formatTime(guest.entryTime!)}` 
-            : `Cadastrado em ${formatDate(guest.createdAt)}`}
-        </div>
-        {guest.entered ? (
-          <button 
-            disabled
-            className="px-4 py-1 bg-gray-700 bg-opacity-50 text-gray-300 rounded-lg border border-gray-600 cursor-not-allowed"
-          >
-            Já Entrou
-          </button>
-        ) : (
-          <button 
-            onClick={() => onCheckIn(guest.id)}
-            className="px-4 py-1 bg-[#01FDF6] bg-opacity-20 text-[#01FDF6] rounded-lg border border-[#01FDF6] hover:bg-opacity-30 shadow-neon-blue transition-all duration-200"
-          >
-            Mete Ficha
-          </button>
-        )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import LoginPage from "@/pages/LoginPage";
 import EventsPage from "@/pages/EventsPage";
 import EventDetailPage from "@/pages/EventDetailPage";
+import GuestsPage from "@/pages/GuestsPage"; 
 import Footer from "@/components/Footer";
 import DeveloperInfo from "@/components/DeveloperInfo";
 import { useAuth } from "@/hooks/useAuth";
@@ -42,8 +43,8 @@ function Router() {
       <Route path="/events/:id">
         {(params) => <ProtectedRoute component={EventDetailPage} />}
       </Route>
-      <Route path="/guests/:eventId">
-        {(params) => <ProtectedRoute component={EventDetailPage} />}
+      <Route path="/events/:eventId/guests">
+        {(params) => <ProtectedRoute component={GuestsPage} />}
       </Route>
       <Route component={NotFound} />
     </Switch>

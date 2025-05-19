@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { Trash2 } from "lucide-react";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -8,34 +9,46 @@ interface DeleteModalProps {
   onConfirm: () => void;
 }
 
-const DeleteModal: FC<DeleteModalProps> = ({ isOpen, guestName, onClose, onConfirm }) => {
+const DeleteModal: FC<DeleteModalProps> = ({
+  isOpen,
+  guestName,
+  onClose,
+  onConfirm,
+}) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur z-50 flex items-center justify-center">
-      <div className="bg-[#0D2818] rounded-xl w-full max-w-sm p-5 mx-4 border border-gray-800 shadow-xl">
-        <div className="text-center mb-4">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[#0F351E] rounded-full flex items-center justify-center border-2 border-[#FF3D00]">
-            <Trash2 className="h-8 w-8 text-[#FF3D00]" />
-          </div>
-          <h3 className="text-xl font-bold mb-2">Remover Convidado</h3>
-          <p className="text-gray-300">
-            Tem certeza que deseja remover <span className="font-medium text-white">{guestName}</span> da lista?
-          </p>
-        </div>
-        <div className="flex justify-center gap-3">
-          <button 
+    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur z-50 flex items-end justify-center md:items-center">
+      <div className="bg-[#132f61] border border-[#1e3c70] rounded-t-xl md:rounded-xl w-full max-w-md p-6 animate-in slide-in-from-bottom md:slide-in-from-center">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-white">Remover Convidado</h2>
+          <button
             onClick={onClose}
-            className="px-4 py-2 bg-[#121212] border border-gray-700 text-white rounded-lg hover:bg-opacity-80 flex-1"
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <p className="text-gray-300 mb-6">
+          Tem certeza que deseja remover <span className="font-bold text-white">{guestName}</span> da lista de convidados? Esta ação não pode ser desfeita.
+        </p>
+
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="flex-1 border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28]"
           >
             Cancelar
-          </button>
-          <button 
+          </Button>
+          <Button
+            variant="destructive"
             onClick={onConfirm}
-            className="px-4 py-2 bg-[#FF3D00] border border-[#FF3D00] text-white rounded-lg shadow-sm hover:bg-opacity-90 flex-1"
+            className="flex-1 bg-red-500 hover:bg-red-600 text-white"
           >
             Remover
-          </button>
+          </Button>
         </div>
       </div>
     </div>

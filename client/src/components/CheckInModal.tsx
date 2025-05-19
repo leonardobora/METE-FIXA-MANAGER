@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { X, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface CheckInModalProps {
   isOpen: boolean;
@@ -7,34 +9,50 @@ interface CheckInModalProps {
   onConfirm: () => void;
 }
 
-const CheckInModal: FC<CheckInModalProps> = ({ isOpen, guestName, onClose, onConfirm }) => {
+const CheckInModal: FC<CheckInModalProps> = ({
+  isOpen,
+  guestName,
+  onClose,
+  onConfirm,
+}) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur z-50 flex items-center justify-center">
-      <div className="bg-[#0D2818] rounded-xl w-full max-w-sm p-5 mx-4 border border-gray-800 shadow-xl">
-        <div className="text-center mb-4">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[#0F351E] rounded-full flex items-center justify-center border-2 border-[#01FDF6]">
-            <span className="font-bold text-3xl text-white animate-pulse">8</span>
+    <div className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur z-50 flex items-end justify-center md:items-center">
+      <div className="bg-[#132f61] border border-[#1e3c70] rounded-t-xl md:rounded-xl w-full max-w-md p-6 animate-in slide-in-from-bottom md:slide-in-from-center">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-white">Check-in de Convidado</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="text-center mb-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1e3c70] text-[#AAFF28] mb-4">
+            <CheckCircle className="h-8 w-8" />
           </div>
-          <h3 className="text-xl font-bold mb-2">Confirmar Entrada</h3>
           <p className="text-gray-300">
-            Deseja confirmar a entrada de <span className="font-medium text-white">{guestName}</span>?
+            Confirmar check-in para <span className="font-bold text-white">{guestName}</span>?
           </p>
         </div>
-        <div className="flex justify-center gap-3">
-          <button 
+
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
             onClick={onClose}
-            className="px-4 py-2 bg-[#121212] border border-gray-700 text-white rounded-lg hover:bg-opacity-80 flex-1"
+            className="flex-1 border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28]"
           >
             Cancelar
-          </button>
-          <button 
+          </Button>
+          <Button
             onClick={onConfirm}
-            className="px-4 py-2 bg-[#01FDF6] border border-[#01FDF6] text-white rounded-lg shadow-neon-blue hover:bg-opacity-90 flex-1"
+            className="flex-1 bg-[#AAFF28] text-[#081b42] hover:bg-[#88cc20]"
           >
-            Mete Fixa!
-          </button>
+            Confirmar Entrada
+          </Button>
         </div>
       </div>
     </div>

@@ -9,12 +9,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { GuestFormModal } from "@/components/GuestFormModal";
-import { EmptyState } from "@/components/EmptyState";
-import { GuestList } from "@/components/GuestList";
-import { FilterBar } from "@/components/FilterBar";
-import { DeleteModal } from "@/components/DeleteModal";
-import { CheckInModal } from "@/components/CheckInModal";
+import GuestFormModal from "@/components/GuestFormModal";
+import EmptyState from "@/components/EmptyState";
+import GuestList from "@/components/GuestList";
+import FilterBar from "@/components/FilterBar";
+import DeleteModal from "@/components/DeleteModal";
+import CheckInModal from "@/components/CheckInModal";
 import { type FilterType } from "@shared/schema";
 
 const GuestsPage: FC = () => {
@@ -40,6 +40,9 @@ const GuestsPage: FC = () => {
     queryKey: ['/api/events/' + eventId + '/guests'],
     enabled: isAuthenticated && !!eventId,
   });
+  
+  // Defina um tipo seguro para guests
+  const safeGuests: any[] = Array.isArray(guests) ? guests : [];
   
   // Mutar para adicionar um convidado
   const addGuestMutation = useMutation({
@@ -167,7 +170,7 @@ const GuestsPage: FC = () => {
   };
   
   const openEditGuestModal = (id: string) => {
-    const guest = guests.find((g: any) => g.id === id);
+    const guest = safeGuests.find((g: any) => g.id === id);
     if (guest) {
       setEditingGuest(guest);
       setIsGuestFormOpen(true);
@@ -175,14 +178,14 @@ const GuestsPage: FC = () => {
   };
   
   const openDeleteGuestModal = (id: string) => {
-    const guest = guests.find((g: any) => g.id === id);
+    const guest = safeGuests.find((g: any) => g.id === id);
     if (guest) {
       setGuestToDelete(guest);
     }
   };
   
   const openCheckInModal = (id: string) => {
-    const guest = guests.find((g: any) => g.id === id);
+    const guest = safeGuests.find((g: any) => g.id === id);
     if (guest) {
       setGuestToCheckIn(guest);
     }

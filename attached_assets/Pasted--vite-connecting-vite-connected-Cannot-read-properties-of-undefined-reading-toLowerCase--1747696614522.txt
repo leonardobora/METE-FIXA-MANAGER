@@ -1,0 +1,27 @@
+[vite] connecting...
+[vite] connected.
+Cannot read properties of undefined (reading 'toLowerCase')
+Cannot read properties of undefined (reading 'toLowerCase')
+The above error occurred in the <GuestCard> component:
+
+    at GuestCard (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/src/components/GuestCard.tsx:21:22)
+    at div
+    at GuestList (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/src/components/GuestList.tsx:20:3)
+    at div
+    at main
+    at div
+    at GuestsPage (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/src/pages/GuestsPage.tsx:38:22)
+    at ProtectedRoute (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/src/App.tsx?v=CPRRXPPnTDqj4brSnIg10:30:38)
+    at Route (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=cd404d22:323:16)
+    at Switch (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=cd404d22:379:17)
+    at Router
+    at div
+    at div
+    at Provider (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-SG7MREQ6.js?v=cd404d22:38:15)
+    at TooltipProvider (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=cd404d22:58:5)
+    at QueryClientProvider (https://60c8298f-e980-4c6a-829b-cf606406ff8f-00-1847pqoageibf.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=cd404d22:2805:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+Cannot read properties of undefined (reading 'toLowerCase')

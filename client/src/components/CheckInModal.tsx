@@ -33,7 +33,7 @@ const CheckInModal: FC<CheckInModalProps> = ({ isOpen, guestName, onClose, onCon
             onClick={onConfirm}
             className="px-4 py-2 bg-[#01FDF6] border border-[#01FDF6] text-white rounded-lg shadow-neon-blue hover:bg-opacity-90 flex-1"
           >
-            Confirmar
+            Mete Fixa!
           </button>
         </div>
       </div>

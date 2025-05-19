@@ -10,7 +10,7 @@ const EmptyState: FC<EmptyStateProps> = ({ onAddFirstGuest }) => {
       <div className="w-16 h-16 mb-4 bg-[#0F351E] rounded-full flex items-center justify-center border-2 border-[#FF2A6D]">
         <span className="font-bold text-2xl text-white">8</span>
       </div>
-      <h3 className="font-semibold text-xl mb-2">A lista está vazia</h3>
+      <h3 className="font-semibold text-xl mb-2">A lista ainda está vazia...</h3>
       <p className="text-gray-400 mb-4">Cadastre convidados usando o botão abaixo</p>
       <button 
         onClick={onAddFirstGuest}

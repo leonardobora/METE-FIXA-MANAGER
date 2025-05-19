@@ -18,7 +18,7 @@ const Header: FC<HeaderProps> = ({ totalGuests, searchQuery, setSearchQuery }) =
           </div>
           <h1 className="font-bold text-2xl tracking-tight">
             <span className="text-white">Mete</span>
-            <span className="neon-text-blue">Ficha</span>
+            <span className="neon-text-blue">Fixa</span>
           </h1>
         </div>
         <div className="text-sm">

@@ -54,8 +54,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <div className="flex flex-col min-h-screen bg-[#081b42]">
+          <div className="flex-grow">
+            <Router />
+          </div>
+          <Footer />
+          <DeveloperInfo />
+        </div>
         <Toaster />
-        <Router />
       </TooltipProvider>
     </QueryClientProvider>
   );

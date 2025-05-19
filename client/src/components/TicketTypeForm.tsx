@@ -54,10 +54,8 @@ const TicketTypeForm: FC<TicketTypeFormProps> = ({
   }, [editingTicketType, form]);
 
   const handleFormSubmit = (values: FormValues) => {
-    onSubmit({
-      ...values,
-      eventId
-    });
+    // Pass form values to parent component
+    onSubmit(values);
     form.reset();
   };
 

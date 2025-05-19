@@ -8,18 +8,41 @@ async function throwIfResNotOk(res: Response) {
 }
 
 export async function apiRequest(
-  method: string,
-  url: string,
-  data?: unknown | undefined,
-): Promise<Response> {
-  const res = await fetch(url, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
-    credentials: "include",
-  });
+  endpoint: string,
+  options: RequestInit = {}
+): Promise<any> {
+  const defaultHeaders = {
+    "Content-Type": "application/json",
+  };
 
-  await throwIfResNotOk(res);
+  const config = {
+    ...options,
+    headers: {
+      ...defaultHeaders,
+      ...options.headers,
+    },
+    credentials: "include" as RequestCredentials,
+  };
+
+  const res = await fetch(endpoint, config);
+  
+  if (!res.ok) {
+    if (res.status === 401) {
+      // Redirect to login if unauthorized
+      window.location.href = "/login";
+      return null;
+    }
+    
+    const text = await res.text();
+    throw new Error(`${res.status}: ${text || res.statusText}`);
+  }
+  
+  // Check if response has content
+  const contentType = res.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return await res.json();
+  }
+  
   return res;
 }
 

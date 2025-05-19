@@ -1,0 +1,62 @@
+import { FC, useEffect } from "react";
+import { useLocation } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+
+const LoginPage: FC = () => {
+  const { isAuthenticated, isLoading } = useAuth();
+  const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLocation("/events");
+    }
+  }, [isAuthenticated, setLocation]);
+
+  const handleLogin = () => {
+    window.location.href = "/api/login";
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <div className="flex-1 flex flex-col justify-center items-center p-4 text-center">
+        <div className="w-16 h-16 rounded-full bg-[#132f61] flex items-center justify-center border-2 border-[#AAFF28] mb-6">
+          <span className="font-bold text-2xl text-[#AAFF28]">M</span>
+        </div>
+        
+        <h1 className="text-3xl font-bold mb-2">
+          <span className="text-white">Mete</span>
+          <span className="neon-text-green">Ficha</span>
+        </h1>
+        <p className="text-gray-400 mb-8 max-w-md">
+          Gerencie a entrada de convidados em seus eventos de forma fácil e organizada.
+        </p>
+        
+        <div className="bg-[#132f61] border border-[#1e3c70] rounded-lg p-6 max-w-sm w-full mb-8">
+          <h2 className="text-lg font-medium mb-4">Acesse sua conta</h2>
+          <p className="text-sm text-gray-400 mb-6">
+            Faça login com sua conta Replit para gerenciar seus eventos.
+          </p>
+          
+          <Button
+            onClick={handleLogin}
+            disabled={isLoading}
+            className="w-full bg-[#AAFF28] text-[#081b42] hover:bg-[#95e625] font-medium"
+          >
+            {isLoading ? "Carregando..." : "Entrar com Replit"}
+          </Button>
+        </div>
+        
+        <div className="text-sm text-gray-500">
+          <p>Criado para organizadores de eventos e profissionais de portaria.</p>
+        </div>
+      </div>
+      
+      <footer className="p-4 border-t border-[#1e3c70] text-center text-xs text-gray-500">
+        &copy; {new Date().getFullYear()} Mete Ficha - O melhor sistema para controle de entrada
+      </footer>
+    </div>
+  );
+};
+
+export default LoginPage;

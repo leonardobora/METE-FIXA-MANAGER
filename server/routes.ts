@@ -255,6 +255,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/events/:eventId/guests", isAuthenticated, async (req: any, res: Response) => {
     try {
+      console.log("Recebendo requisição para criar convidado:", req.body);
       const eventId = parseInt(req.params.eventId);
       if (isNaN(eventId)) {
         return res.status(400).json({ message: "Invalid event ID" });

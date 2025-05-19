@@ -99,7 +99,13 @@ const GuestFormModal: FC<GuestFormModalProps> = ({
   }, [editingGuest, form, ticketTypes, isOpen]);
 
   const handleFormSubmit = (data: FormValues) => {
-    onSubmit(data);
+    const guestData = {
+      name: data.name,
+      ticketTypeId: Number(data.ticketTypeId),
+      observations: data.observations || null,
+      eventId: eventId
+    };
+    onSubmit(guestData);
     form.reset();
   };
 

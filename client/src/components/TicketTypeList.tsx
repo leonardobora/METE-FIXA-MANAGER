@@ -91,9 +91,13 @@ const TicketTypeList: FC<TicketTypeListProps> = ({ eventId }) => {
   // Mutação para excluir tipo de ingresso
   const deleteTicketTypeMutation = useMutation({
     mutationFn: async (id: number) => {
-      return apiRequest(`/api/ticket-types/${id}`, {
+      const response = await apiRequest(`/api/ticket-types/${id}`, {
         method: 'DELETE',
       });
+      if (!response.ok) {
+        throw new Error('Falha ao excluir tipo de ingresso');
+      }
+      return response;
     },
     onSuccess: () => {
       toast({

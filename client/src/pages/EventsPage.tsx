@@ -33,19 +33,26 @@ const EventsPage: FC = () => {
 
   const handleFormSubmit = async (data: any) => {
     try {
-      // Combine date and time into a single Date object for backend
-      const eventDate = new Date(`${data.date}T${data.time}`);
+      // Validar dados antes de processar
+      if (!data.name || !data.date || !data.time || !data.duration) {
+        throw new Error("Todos os campos obrigatórios devem ser preenchidos");
+      }
       
-      // Certifique-se de que a data é válida
+      // Combine date and time into a single Date object for backend
+      const dateStr = data.date.replace(/\//g, '-'); // Garantir formato correto de data
+      const eventDate = new Date(`${dateStr}T${data.time}`);
+      
+      // Verificar se a data é válida
       if (isNaN(eventDate.getTime())) {
         throw new Error("Data ou hora inválida");
       }
       
+      // Criar objeto com dados formatados corretamente
       const eventData = {
-        name: data.name,
+        name: data.name.trim(),
         date: eventDate.toISOString(),
         duration: parseInt(data.duration),
-        description: data.description || null,
+        description: data.description?.trim() || null,
       };
 
       console.log("Enviando dados do evento:", eventData);
@@ -84,9 +91,12 @@ const EventsPage: FC = () => {
       console.error("Erro ao salvar evento:", error);
       toast({
         title: "Erro",
-        description: "Não foi possível salvar o evento. Tente novamente.",
+        description: "Não foi possível salvar o evento. Verifique os dados e tente novamente.",
         variant: "destructive",
       });
+      
+      // Mantém o formulário aberto para correção
+      setIsFormOpen(true);
     }
   };
 

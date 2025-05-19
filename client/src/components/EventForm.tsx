@@ -69,9 +69,33 @@ const EventForm: FC<EventFormProps> = ({
   }, [editingEvent, form]);
 
   const handleFormSubmit = (values: FormValues) => {
-    // Pass the form values directly
-    onSubmit(values);
-    form.reset();
+    try {
+      // Validação adicional dos campos
+      if (!values.name.trim()) {
+        throw new Error("Nome do evento é obrigatório");
+      }
+      
+      if (!values.date) {
+        throw new Error("Data do evento é obrigatória");
+      }
+      
+      if (!values.time) {
+        throw new Error("Horário do evento é obrigatório");
+      }
+      
+      // Certifique-se de que a duração é um número válido
+      const duration = parseInt(values.duration);
+      if (isNaN(duration) || duration <= 0) {
+        throw new Error("Duração deve ser um número positivo");
+      }
+      
+      // Envia os dados para o componente pai
+      onSubmit(values);
+      form.reset();
+    } catch (error: any) {
+      console.error("Erro no formulário:", error);
+      // Não fecha o formulário nem reseta em caso de erro
+    }
   };
 
   if (!isOpen) return null;

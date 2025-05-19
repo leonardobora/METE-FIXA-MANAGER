@@ -18,10 +18,10 @@ const EventsPage: FC = () => {
   const queryClient = useQueryClient();
 
   const { 
-    data: events = [], 
+    data: events = [] as Event[], 
     isLoading: eventsLoading,
     error,
-  } = useQuery({
+  } = useQuery<Event[]>({
     queryKey: ["/api/events"],
     enabled: isAuthenticated,
   });
@@ -33,12 +33,15 @@ const EventsPage: FC = () => {
 
   const handleFormSubmit = async (data: any) => {
     try {
+      // Combine date and time into a single Date object for backend
       const eventData = {
         name: data.name,
         date: new Date(`${data.date}T${data.time}`).toISOString(),
         duration: parseInt(data.duration),
-        description: data.description,
+        description: data.description || null,
       };
+
+      console.log("Enviando dados do evento:", eventData);
 
       if (editingEvent) {
         await apiRequest(`/api/events/${editingEvent.id}`, {
@@ -53,13 +56,14 @@ const EventsPage: FC = () => {
           description: "O evento foi atualizado com sucesso.",
         });
       } else {
-        await apiRequest("/api/events", {
+        const response = await apiRequest("/api/events", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(eventData),
         });
+        console.log("Resposta da criação do evento:", response);
         toast({
           title: "Evento criado",
           description: "O evento foi criado com sucesso.",

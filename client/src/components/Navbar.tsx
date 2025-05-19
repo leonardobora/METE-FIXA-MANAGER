@@ -12,12 +12,6 @@ const Navbar: FC = () => {
 
   const NavItems = () => (
     <>
-      <Link href="/">
-        <a className={`flex items-center px-3 py-2 rounded-md text-sm ${location === '/' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`}>
-          <Home className="h-4 w-4 mr-2" />
-          <span>Início</span>
-        </a>
-      </Link>
       {isAuthenticated && (
         <>
           <Link href="/events">

@@ -69,16 +69,8 @@ const EventForm: FC<EventFormProps> = ({
   }, [editingEvent, form]);
 
   const handleFormSubmit = (values: FormValues) => {
-    // Combine date and time into a single Date object
-    const dateTime = new Date(`${values.date}T${values.time}`);
-    
-    const submissionData = {
-      ...values,
-      date: dateTime,
-      duration: parseInt(values.duration),
-    };
-    
-    onSubmit(submissionData);
+    // Pass the form values directly
+    onSubmit(values);
     form.reset();
   };
 

@@ -72,7 +72,7 @@ const EventCard: FC<EventCardProps> = ({ event, totalGuests = 0 }) => {
             Ver detalhes
           </a>
         </Link>
-        <Link href={`/events/${event.id}/guests`}>
+        <Link href={`/guests/${event.id}`}>
           <a className="text-sm px-3 py-1 bg-[#081b42] rounded-md border border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28] transition-colors flex items-center">
             <Ticket className="h-3 w-3 mr-1" /> Gerenciar entradas
           </a>

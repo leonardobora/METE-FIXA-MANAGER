@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
+import { Instagram } from "lucide-react";
+import DeveloperInfo from "@/components/DeveloperInfo";
 
 const LoginPage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -35,7 +37,7 @@ const LoginPage: FC = () => {
           RAP, TRAP & FUNK
         </p>
         
-        <div className="bg-[#132f61] border border-[#1e3c70] rounded-lg p-6 max-w-sm w-full mb-8">
+        <div className="pixta-card bg-[#132f61] border border-[#1e3c70] rounded-lg p-6 max-w-sm w-full mb-8">
           <h2 className="text-lg font-medium mb-4">Acesse sua conta</h2>
           <p className="text-sm text-gray-400 mb-6">
             Faça login com sua conta Replit para gerenciar seus eventos.
@@ -48,6 +50,18 @@ const LoginPage: FC = () => {
           >
             {isLoading ? "Carregando..." : "Entrar com Replit"}
           </Button>
+          
+          <div className="mt-6 flex items-center justify-center">
+            <a 
+              href="https://www.instagram.com/_metefixaa/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-gray-400 hover:text-[#AAFF28] flex items-center transition-colors"
+            >
+              <Instagram className="h-4 w-4 mr-1" />
+              @_metefixaa
+            </a>
+          </div>
         </div>
         
         <div className="text-sm text-gray-500">
@@ -56,8 +70,10 @@ const LoginPage: FC = () => {
       </div>
       
       <footer className="p-4 border-t border-[#1e3c70] text-center text-xs text-gray-500">
-        &copy; {new Date().getFullYear()} Mete Ficha - O melhor sistema para controle de entrada
+        &copy; {new Date().getFullYear()} METEFIXA - O melhor sistema para controle de entrada
       </footer>
+      
+      <DeveloperInfo />
     </div>
   );
 };

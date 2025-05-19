@@ -151,20 +151,7 @@ export const insertGuestSchema = createInsertSchema(guests).omit({
 export type InsertGuest = z.infer<typeof insertGuestSchema>;
 export type Guest = typeof guests.$inferSelect;
 
-// For client-side temporary storage compatibility
-export const clientGuestSchema = z.object({
-  id: z.string(),
-  name: z.string().min(1, "Nome é obrigatório"),
-  ticketType: z.string().min(1, "Tipo de ingresso é obrigatório"),
-  ticketTypeId: z.number().optional(),
-  eventId: z.number().optional(),
-  observations: z.string().optional(),
-  entered: z.boolean().default(false),
-  createdAt: z.number(),
-  entryTime: z.union([z.number(), z.null()]),
-});
-
-export type ClientGuest = z.infer<typeof clientGuestSchema>;
+export type FilterType = "all" | "pista" | "vip" | "cortesia" | "entered";
 
 // Statistics view type
 export const eventStatSchema = z.object({

@@ -1,67 +1,52 @@
 import { FC } from "react";
-import { FilterType } from "@/types/Guest";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { type FilterType } from "@shared/schema";
 
 interface FilterBarProps {
   currentFilter: FilterType;
   setCurrentFilter: (filter: FilterType) => void;
 }
 
-const FilterBar: FC<FilterBarProps> = ({ currentFilter, setCurrentFilter }) => {
+export const FilterBar: FC<FilterBarProps> = ({ currentFilter, setCurrentFilter }) => {
   return (
-    <div className="px-4 py-2 bg-[#121212] bg-opacity-80 flex items-center overflow-x-auto whitespace-nowrap">
-      <span className="text-sm text-gray-400 mr-2">Filtros:</span>
-      <button 
-        onClick={() => setCurrentFilter("all")}
-        className={`px-3 py-1 mr-2 rounded-full text-sm border ${
-          currentFilter === "all" 
-            ? "bg-[#B026FF] bg-opacity-20 text-white border-[#B026FF] neon-glow-purple" 
-            : "bg-[#121212] text-gray-300 border-gray-700"
-        }`}
-      >
-        Todos
-      </button>
-      <button 
-        onClick={() => setCurrentFilter("pista")}
-        className={`px-3 py-1 mr-2 rounded-full text-sm border ${
-          currentFilter === "pista" 
-            ? "bg-[#B026FF] bg-opacity-20 text-white border-[#B026FF] neon-glow-purple" 
-            : "bg-[#121212] text-gray-300 border-gray-700"
-        }`}
-      >
-        Pista
-      </button>
-      <button 
-        onClick={() => setCurrentFilter("vip")}
-        className={`px-3 py-1 mr-2 rounded-full text-sm border ${
-          currentFilter === "vip" 
-            ? "bg-[#B026FF] bg-opacity-20 text-white border-[#B026FF] neon-glow-purple" 
-            : "bg-[#121212] text-gray-300 border-gray-700"
-        }`}
-      >
-        VIP
-      </button>
-      <button 
-        onClick={() => setCurrentFilter("cortesia")}
-        className={`px-3 py-1 mr-2 rounded-full text-sm border ${
-          currentFilter === "cortesia" 
-            ? "bg-[#B026FF] bg-opacity-20 text-white border-[#B026FF] neon-glow-purple" 
-            : "bg-[#121212] text-gray-300 border-gray-700"
-        }`}
-      >
-        Cortesia
-      </button>
-      <button 
-        onClick={() => setCurrentFilter("entered")}
-        className={`px-3 py-1 rounded-full text-sm border ${
-          currentFilter === "entered" 
-            ? "bg-[#B026FF] bg-opacity-20 text-white border-[#B026FF] neon-glow-purple" 
-            : "bg-[#121212] text-gray-300 border-gray-700"
-        }`}
-      >
-        Entraram
-      </button>
-    </div>
+    <Tabs value={currentFilter} className="w-full">
+      <TabsList className="bg-[#132f61] border border-[#1e3c70] w-full flex overflow-x-auto">
+        <TabsTrigger 
+          value="all" 
+          onClick={() => setCurrentFilter("all")}
+          className="flex-1 data-[state=active]:bg-[#3B82F6] data-[state=active]:text-white"
+        >
+          Todos
+        </TabsTrigger>
+        <TabsTrigger 
+          value="pista" 
+          onClick={() => setCurrentFilter("pista")}
+          className="flex-1 data-[state=active]:bg-[#3B82F6] data-[state=active]:text-white"
+        >
+          Pista
+        </TabsTrigger>
+        <TabsTrigger 
+          value="vip" 
+          onClick={() => setCurrentFilter("vip")}
+          className="flex-1 data-[state=active]:bg-[#3B82F6] data-[state=active]:text-white"
+        >
+          VIP
+        </TabsTrigger>
+        <TabsTrigger 
+          value="cortesia" 
+          onClick={() => setCurrentFilter("cortesia")}
+          className="flex-1 data-[state=active]:bg-[#3B82F6] data-[state=active]:text-white"
+        >
+          Cortesia
+        </TabsTrigger>
+        <TabsTrigger 
+          value="entered" 
+          onClick={() => setCurrentFilter("entered")}
+          className="flex-1 data-[state=active]:bg-[#AAFF28] data-[state=active]:text-[#081b42]"
+        >
+          Presentes
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
   );
 };
-
-export default FilterBar;

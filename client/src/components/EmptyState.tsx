@@ -1,4 +1,6 @@
 import { FC } from "react";
+import { Button } from "@/components/ui/button";
+import { Ticket } from "lucide-react";
 
 interface EmptyStateProps {
   onAddFirstGuest: () => void;
@@ -6,18 +8,20 @@ interface EmptyStateProps {
 
 const EmptyState: FC<EmptyStateProps> = ({ onAddFirstGuest }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-      <div className="w-16 h-16 mb-4 bg-[#0F351E] rounded-full flex items-center justify-center border-2 border-[#FF2A6D]">
-        <span className="font-bold text-2xl text-white">8</span>
+    <div className="text-center py-10 bg-[#132f61] rounded-lg border border-[#1e3c70]">
+      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1e3c70] text-[#3B82F6] mb-4">
+        <Ticket className="h-8 w-8" />
       </div>
-      <h3 className="font-semibold text-xl mb-2">A lista ainda está vazia...</h3>
-      <p className="text-gray-400 mb-4">Cadastre convidados usando o botão abaixo</p>
-      <button 
+      <h3 className="text-xl font-bold text-white mb-2">Nenhum convidado ainda</h3>
+      <p className="text-gray-300 mb-6 max-w-md mx-auto">
+        Adicione convidados para gerenciar a entrada no seu evento
+      </p>
+      <Button 
         onClick={onAddFirstGuest}
-        className="px-4 py-2 bg-[#FF2A6D] rounded-lg text-white font-medium shadow-neon-pink"
+        className="bg-[#AAFF28] text-[#081b42] hover:bg-[#88cc20]"
       >
-        Adicionar primeiro convidado
-      </button>
+        Adicionar Primeiro Convidado
+      </Button>
     </div>
   );
 };

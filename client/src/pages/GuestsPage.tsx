@@ -223,6 +223,7 @@ const GuestsPage: FC = () => {
   
   // Formatar data
   const formatDate = (dateString: string) => {
+    if (!dateString) return "Data não disponível";
     return new Date(dateString).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
@@ -232,13 +233,16 @@ const GuestsPage: FC = () => {
   
   // Formatar horário
   const formatTime = (dateString: string) => {
+    if (!dateString) return "Horário não disponível";
     return new Date(dateString).toLocaleTimeString('pt-BR', {
       hour: '2-digit',
       minute: '2-digit'
     });
   };
   
-  const eventDate = new Date(event.date);
+  // Garantir que temos um evento válido
+  const safeEvent = event || {};
+  const eventDate = safeEvent.date ? new Date(safeEvent.date) : new Date();
   const isUpcoming = eventDate > new Date();
   
   return (
@@ -251,7 +255,7 @@ const GuestsPage: FC = () => {
         <div className="bg-[#132f61] rounded-lg border border-[#1e3c70] p-4 mb-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
             <div className="flex items-center mb-2 md:mb-0">
-              <h1 className="text-xl font-bold text-white mr-3">{event.name}</h1>
+              <h1 className="text-xl font-bold text-white mr-3">{safeEvent.name || "Evento"}</h1>
               <Badge className={isUpcoming ? 'bg-[#AAFF28] text-[#081b42]' : 'bg-[#3B82F6]'}>
                 {isUpcoming ? 'Próximo' : 'Realizado'}
               </Badge>
@@ -268,13 +272,13 @@ const GuestsPage: FC = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-300">
             <div>
-              <span className="text-gray-400">Data:</span> {formatDate(event.date)}
+              <span className="text-gray-400">Data:</span> {formatDate(safeEvent.date)}
             </div>
             <div>
-              <span className="text-gray-400">Horário:</span> {formatTime(event.date)} ({event.duration}h)
+              <span className="text-gray-400">Horário:</span> {formatTime(safeEvent.date)} ({safeEvent.duration || 0}h)
             </div>
             <div>
-              <span className="text-gray-400">Total de convidados:</span> {guests.length}
+              <span className="text-gray-400">Total de convidados:</span> {safeGuests.length}
             </div>
           </div>
         </div>
@@ -313,9 +317,9 @@ const GuestsPage: FC = () => {
                 <div key={i} className="h-24 bg-[#132f61] rounded-lg"></div>
               ))}
             </div>
-          ) : guests.length > 0 ? (
+          ) : safeGuests.length > 0 ? (
             <GuestList 
-              guests={guests} 
+              guests={safeGuests} 
               searchQuery={searchQuery}
               currentFilter={currentFilter}
               onEdit={openEditGuestModal}

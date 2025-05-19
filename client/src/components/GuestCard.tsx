@@ -15,16 +15,16 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
   // Formatar data/hora
   const formatDateTime = (timestamp: number) => {
     if (!timestamp) return "Não entrou";
-    
+
     return new Date(timestamp).toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
     });
   };
-  
+
   // Determinar o tipo de ingresso a ser exibido
-  const ticketTypeName = guest.ticketTypeName || guest.ticketType?.name || "Sem tipo";
-  
+  const ticketTypeName = guest.ticketType?.name || "Sem tipo";
+
   // Obter cor do badge baseado no nome do tipo de ingresso (case-insensitive)
   const getTicketTypeBadgeClass = (typeName: string | undefined) => {
     if (!typeName) return "bg-gray-500"; // Default color for undefined ticket type
@@ -41,7 +41,7 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
       return `bg-[hsl(${hue},70%,50%)]`;
     }
   };
-  
+
   return (
     <Card className="bg-[#132f61] border-[#1e3c70] overflow-hidden hover:border-[#3B82F6] transition-all duration-300">
       <div className={`h-1 ${guest.entered ? 'bg-[#AAFF28]' : 'bg-[#3B82F6]'}`}></div>
@@ -59,12 +59,12 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
                 </Badge>
               )}
             </div>
-            
+
             <div className="flex flex-col text-sm text-gray-400 gap-1">
               {guest.observations && (
                 <p className="text-gray-300">{guest.observations}</p>
               )}
-              
+
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-1" />
                 {guest.entered 
@@ -73,7 +73,7 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center gap-2 self-end md:self-auto">
             <Button
               size="sm"
@@ -83,7 +83,7 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
             >
               <Edit className="w-4 h-4" />
             </Button>
-            
+
             <Button
               size="sm"
               variant="outline"
@@ -92,7 +92,7 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
             >
               <Trash className="w-4 h-4" />
             </Button>
-            
+
             {!guest.entered && (
               <Button
                 size="sm"

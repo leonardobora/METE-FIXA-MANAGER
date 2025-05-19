@@ -64,11 +64,15 @@ export const eventsRelations = relations(events, ({ one, many }) => ({
   guests: many(guests),
 }));
 
-export const insertEventSchema = createInsertSchema(events).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
+export const insertEventSchema = createInsertSchema(events)
+  .omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    date: z.string().transform((str) => new Date(str)),
+  });
 
 export type InsertEvent = z.infer<typeof insertEventSchema>;
 export type Event = typeof events.$inferSelect;

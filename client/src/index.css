@@ -76,6 +76,20 @@
     text-shadow: 0 0 5px rgba(170, 255, 40, 0.5);
   }
   
+  /* Pixta-inspired gradients and effects */
+  .pixta-gradient-bg {
+    background: linear-gradient(135deg, #081b42 0%, #132f61 100%);
+  }
+  
+  .pixta-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .pixta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
   .neon-text-cyan {
     color: #01FDF6;
     text-shadow: 0 0 5px rgba(1, 253, 246, 0.5);

@@ -25,11 +25,14 @@ const LoginPage: FC = () => {
         </div>
         
         <h1 className="text-3xl font-bold mb-2">
-          <span className="text-white">Mete</span>
-          <span className="neon-text-green">Ficha</span>
+          <span className="text-white">METE</span>
+          <span className="neon-text-green">FIXA</span>
         </h1>
-        <p className="text-gray-400 mb-8 max-w-md">
-          Gerencie a entrada de convidados em seus eventos de forma fácil e organizada.
+        <p className="text-gray-400 mb-4 max-w-md">
+          O rolê de toda quinta - Gerencie a entrada de convidados em seus eventos com estilo.
+        </p>
+        <p className="text-sm text-[#AAFF28] mb-8">
+          RAP, TRAP & FUNK
         </p>
         
         <div className="bg-[#132f61] border border-[#1e3c70] rounded-lg p-6 max-w-sm w-full mb-8">

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/hooks/useAuth";
-import { Calendar, Home, UserCircle2, BarChart, Menu } from "lucide-react";
+import { Calendar, Home, UserCircle2, BarChart, Menu, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AuthButton from "@/components/AuthButton";
@@ -81,11 +81,21 @@ const Navbar: FC = () => {
                 <span className="font-bold text-[#AAFF28]">M</span>
               </div>
               <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
-                <span className="text-white">Mete</span>
-                <span className="neon-text-green">Ficha</span>
+                <span className="text-white">METE</span>
+                <span className="neon-text-green">FIXA</span>
               </span>
             </a>
           </Link>
+          
+          <a 
+            href="https://www.instagram.com/_metefixaa/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="ml-4 text-sm text-gray-400 hover:text-[#AAFF28] hidden md:flex items-center transition-colors"
+          >
+            <Instagram className="h-4 w-4 mr-1" />
+            @_metefixaa
+          </a>
           <div className="hidden md:flex ml-6 items-center space-x-1">
             <NavItems />
           </div>

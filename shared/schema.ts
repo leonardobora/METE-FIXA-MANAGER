@@ -71,7 +71,17 @@ export const insertEventSchema = createInsertSchema(events)
     updatedAt: true,
   })
   .extend({
-    date: z.string().transform((str) => new Date(str)),
+    date: z.string()
+      .refine((date) => new Date(date) > new Date(), {
+        message: "A data do evento deve ser no futuro"
+      })
+      .transform((str) => new Date(str)),
+    duration: z.number()
+      .min(1, "A duração deve ser de pelo menos 1 hora")
+      .max(72, "A duração máxima é de 72 horas"),
+    name: z.string()
+      .min(3, "O nome deve ter pelo menos 3 caracteres")
+      .max(100, "O nome deve ter no máximo 100 caracteres"),
   });
 
 export type InsertEvent = z.infer<typeof insertEventSchema>;

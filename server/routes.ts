@@ -55,19 +55,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/events", isAuthenticated, async (req: any, res: Response) => {
     try {
       const userId = req.user.claims.sub;
+      
+      // Valida e transforma os dados
       const eventData = insertEventSchema.parse({
         ...req.body,
         userId
       });
+
+      // Validações adicionais de negócio
+      if (eventData.duration * 60 * 60 * 1000 + eventData.date.getTime() > new Date().getTime() + (365 * 24 * 60 * 60 * 1000)) {
+        return res.status(400).json({ 
+          message: "Data inválida",
+          errors: [{ message: "Eventos só podem ser criados com até 1 ano de antecedência" }]
+        });
+      }
       
       const newEvent = await storage.createEvent(eventData);
       res.status(201).json(newEvent);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ message: "Invalid event data", errors: error.errors });
+        return res.status(400).json({ 
+          message: "Dados do evento inválidos", 
+          errors: error.errors.map(err => ({
+            field: err.path.join('.'),
+            message: err.message
+          }))
+        });
       }
-      console.error("Error creating event:", error);
-      res.status(500).json({ message: "Failed to create event" });
+      console.error("Erro ao criar evento:", error);
+      res.status(500).json({ message: "Falha ao criar evento" });
     }
   });
 

@@ -15,13 +15,13 @@ const DeveloperInfo: FC = () => {
 
   return (
     <>
-      <Button
+      <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 left-4 rounded-full w-10 h-10 p-0 bg-[#132f61] hover:bg-[#1e3c70] shadow-lg z-50"
+        className="text-[#3B82F6] hover:text-[#AAFF28] transition-colors text-sm flex items-center"
         aria-label="Informações do desenvolvedor"
       >
-        <HelpCircle size={20} className="text-[#AAFF28]" />
-      </Button>
+        <HelpCircle size={16} className="mr-1" /> Desenvolvedor
+      </button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-[#081b42] border-[#132f61] text-white">

@@ -60,7 +60,6 @@ function App() {
             <Router />
           </div>
           <Footer />
-          <DeveloperInfo />
         </div>
         <Toaster />
       </TooltipProvider>

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Instagram } from "lucide-react";
+import DeveloperInfo from "./DeveloperInfo";
 
 const Footer: FC = () => {
   const currentYear = new Date().getFullYear();
@@ -28,7 +29,16 @@ const Footer: FC = () => {
               <Instagram className="h-5 w-5 mr-2" />
               <span>@_metefixaa</span>
             </a>
-            <p className="text-xs text-gray-400">&copy; {currentYear} METEFIXA - RAP, TRAP & FUNK</p>
+            <div className="flex items-center gap-2">
+              <p className="text-xs text-gray-400">&copy; {currentYear} METEFIXA - RAP, TRAP & FUNK</p>
+              <span className="text-xs text-gray-500">•</span>
+              <button 
+                onClick={() => setIsDevInfoOpen(true)}
+                className="text-xs text-[#3B82F6] hover:text-[#AAFF28] transition-colors"
+              >
+                Desenvolvedor
+              </button>
+            </div>
           </div>
         </div>
       </div>

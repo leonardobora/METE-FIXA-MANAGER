@@ -23,10 +23,11 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
   };
   
   // Determinar o tipo de ingresso a ser exibido
-  const ticketTypeName = guest.ticketTypeName || guest.ticketType;
+  const ticketTypeName = guest.ticketTypeName || guest.ticketType?.name || "Sem tipo";
   
   // Obter cor do badge baseado no nome do tipo de ingresso (case-insensitive)
-  const getTicketTypeBadgeClass = (typeName: string) => {
+  const getTicketTypeBadgeClass = (typeName: string | undefined) => {
+    if (!typeName) return "bg-gray-500"; // Default color for undefined ticket type
     const lowerName = typeName.toLowerCase();
     if (lowerName.includes('vip')) {
       return "bg-[#AAFF28] text-[#081b42]";

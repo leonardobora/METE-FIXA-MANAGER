@@ -308,9 +308,9 @@ const GuestsPage: FC = () => {
       <main className="flex-1 container max-w-4xl mx-auto p-4 py-6">
         <div className="flex justify-between items-center mb-6">
           <Link href={`/events/${eventId}`}>
-            <a className="flex items-center text-[#3B82F6] hover:text-[#AAFF28]">
+            <div className="flex items-center text-[#3B82F6] hover:text-[#AAFF28] cursor-pointer">
               <ArrowLeft className="h-4 w-4 mr-2" /> Voltar para o Evento
-            </a>
+            </div>
           </Link>
         </div>
         

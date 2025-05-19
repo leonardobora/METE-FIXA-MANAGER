@@ -176,12 +176,12 @@ const TicketTypeList: FC<TicketTypeListProps> = ({ eventId }) => {
               <div>
                 <div className="flex items-center">
                   <h4 className="font-medium text-white">{ticketType.name}</h4>
-                  {ticketType.price !== null && (
+                  {ticketType.price !== null && ticketType.price !== undefined && (
                     <span className="ml-2 text-sm text-[#AAFF28]">
-                      R$ {ticketType.price.toFixed(2)}
+                      R$ {Number(ticketType.price).toFixed(2)}
                     </span>
                   )}
-                  {ticketType.limit !== null && (
+                  {ticketType.limit !== null && ticketType.limit !== undefined && (
                     <span className="ml-2 text-xs text-gray-400">
                       (Limite: {ticketType.limit})
                     </span>

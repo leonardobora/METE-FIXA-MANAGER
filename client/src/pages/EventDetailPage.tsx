@@ -181,9 +181,9 @@ const EventDetailPage: FC = () => {
       
       <main className="flex-1 container max-w-4xl mx-auto p-4 py-6">
         <Link href="/events">
-          <a className="flex items-center text-[#3B82F6] hover:text-[#AAFF28] mb-6">
+          <div className="flex items-center text-[#3B82F6] hover:text-[#AAFF28] mb-6 cursor-pointer">
             <ArrowLeft className="h-4 w-4 mr-2" /> Voltar para Eventos
-          </a>
+          </div>
         </Link>
         
         <div className="mb-6 bg-[#132f61] rounded-lg border border-[#1e3c70] overflow-hidden">
@@ -253,9 +253,9 @@ const EventDetailPage: FC = () => {
             
             <div className="mt-6 flex justify-end">
               <Link href={`/events/${eventId}/guests`}>
-                <a className="px-4 py-2 bg-[#3B82F6] text-white rounded-md hover:bg-[#2563EB] flex items-center">
+                <div className="px-4 py-2 bg-[#3B82F6] text-white rounded-md hover:bg-[#2563EB] flex items-center cursor-pointer">
                   <Users className="h-4 w-4 mr-2" /> Gerenciar Convidados
-                </a>
+                </div>
               </Link>
             </div>
           </TabsContent>

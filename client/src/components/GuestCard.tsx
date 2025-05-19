@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Check, Clock, Edit, Trash, User } from "lucide-react";
+import { Check, Clock, Edit, Trash, User, Ticket } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,16 +22,22 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
     });
   };
   
-  const getTicketTypeBadge = (type: string) => {
-    switch (type) {
-      case "vip":
-        return <Badge className="bg-[#AAFF28] text-[#081b42]">VIP</Badge>;
-      case "pista":
-        return <Badge className="bg-[#3B82F6]">Pista</Badge>;
-      case "cortesia":
-        return <Badge className="bg-purple-500">Cortesia</Badge>;
-      default:
-        return <Badge>Desconhecido</Badge>;
+  // Determinar o tipo de ingresso a ser exibido
+  const ticketTypeName = guest.ticketTypeName || guest.ticketType;
+  
+  // Obter cor do badge baseado no nome do tipo de ingresso (case-insensitive)
+  const getTicketTypeBadgeClass = (typeName: string) => {
+    const lowerName = typeName.toLowerCase();
+    if (lowerName.includes('vip')) {
+      return "bg-[#AAFF28] text-[#081b42]";
+    } else if (lowerName.includes('pista')) {
+      return "bg-[#3B82F6]";
+    } else if (lowerName.includes('cortesia')) {
+      return "bg-purple-500";
+    } else {
+      // Gerar uma cor baseada no nome para outros tipos
+      const hue = Math.abs(typeName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 360);
+      return `bg-[hsl(${hue},70%,50%)]`;
     }
   };
   
@@ -41,9 +47,11 @@ const GuestCard: FC<GuestCardProps> = ({ guest, onEdit, onDelete, onCheckIn }) =
       <CardContent className="p-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-bold text-white">{guest.name}</h3>
-              {getTicketTypeBadge(guest.ticketType)}
+              <Badge className={getTicketTypeBadgeClass(ticketTypeName)}>
+                <Ticket className="w-3 h-3 mr-1" /> {ticketTypeName}
+              </Badge>
               {guest.entered && (
                 <Badge className="bg-[#AAFF28] text-[#081b42]">
                   <Check className="w-3 h-3 mr-1" /> Entrou

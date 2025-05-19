@@ -67,16 +67,18 @@ const EventCard: FC<EventCardProps> = ({ event, totalGuests = 0 }) => {
       </CardContent>
       
       <CardFooter className="bg-[#0f2650] p-3 border-t border-[#1e3c70] flex justify-between">
-        <Link href={`/events/${event.id}`}>
-          <a className="text-sm text-[#3B82F6] hover:text-[#AAFF28] transition-colors">
-            Ver detalhes
-          </a>
-        </Link>
-        <Link href={`/guests/${event.id}`}>
-          <a className="text-sm px-3 py-1 bg-[#081b42] rounded-md border border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28] transition-colors flex items-center">
-            <Ticket className="h-3 w-3 mr-1" /> Gerenciar entradas
-          </a>
-        </Link>
+        <div 
+          className="text-sm text-[#3B82F6] hover:text-[#AAFF28] transition-colors cursor-pointer"
+          onClick={() => window.location.href = `/events/${event.id}`}
+        >
+          Ver detalhes
+        </div>
+        <div 
+          className="text-sm px-3 py-1 bg-[#081b42] rounded-md border border-[#3B82F6] text-[#3B82F6] hover:text-[#AAFF28] hover:border-[#AAFF28] transition-colors flex items-center cursor-pointer"
+          onClick={() => window.location.href = `/guests/${event.id}`}
+        >
+          <Ticket className="h-3 w-3 mr-1" /> Gerenciar entradas
+        </div>
       </CardFooter>
     </Card>
   );

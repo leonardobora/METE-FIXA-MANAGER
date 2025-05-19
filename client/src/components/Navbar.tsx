@@ -7,31 +7,25 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import AuthButton from "@/components/AuthButton";
 
 const Navbar: FC = () => {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const { isAuthenticated } = useAuth();
-
+  
   const NavItems = () => (
     <>
       {isAuthenticated && (
         <>
-          <Link href="/events">
-            <a className={`flex items-center px-3 py-2 rounded-md text-sm ${location === '/events' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`}>
-              <Calendar className="h-4 w-4 mr-2" />
-              <span>Eventos</span>
-            </a>
-          </Link>
-          <Link href="/stats">
-            <a className={`flex items-center px-3 py-2 rounded-md text-sm ${location === '/stats' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`}>
-              <BarChart className="h-4 w-4 mr-2" />
-              <span>Estatísticas</span>
-            </a>
-          </Link>
-          <Link href="/profile">
-            <a className={`flex items-center px-3 py-2 rounded-md text-sm ${location === '/profile' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`}>
-              <UserCircle2 className="h-4 w-4 mr-2" />
-              <span>Perfil</span>
-            </a>
-          </Link>
+          <div className={`flex items-center px-3 py-2 rounded-md text-sm cursor-pointer ${location === '/events' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`} onClick={() => setLocation('/events')}>
+            <Calendar className="h-4 w-4 mr-2" />
+            <span>Eventos</span>
+          </div>
+          <div className={`flex items-center px-3 py-2 rounded-md text-sm cursor-pointer ${location === '/stats' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`} onClick={() => setLocation('/events')}>
+            <BarChart className="h-4 w-4 mr-2" />
+            <span>Estatísticas</span>
+          </div>
+          <div className={`flex items-center px-3 py-2 rounded-md text-sm cursor-pointer ${location === '/profile' ? 'bg-[#132f61] text-white' : 'text-gray-300 hover:bg-[#132f61] hover:text-white'}`} onClick={() => setLocation('/events')}>
+            <UserCircle2 className="h-4 w-4 mr-2" />
+            <span>Perfil</span>
+          </div>
         </>
       )}
     </>
@@ -69,17 +63,18 @@ const Navbar: FC = () => {
               </SheetContent>
             </Sheet>
           </div>
-          <Link href="/">
-            <a className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-[#132f61] flex items-center justify-center border-2 border-[#AAFF28]">
-                <span className="font-bold text-[#AAFF28]">M</span>
-              </div>
-              <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
-                <span className="text-white">METE</span>
-                <span className="neon-text-green">FIXA</span>
-              </span>
-            </a>
-          </Link>
+          <div 
+            className="flex items-center gap-2 cursor-pointer" 
+            onClick={() => setLocation('/events')}
+          >
+            <div className="w-9 h-9 rounded-full bg-[#132f61] flex items-center justify-center border-2 border-[#AAFF28]">
+              <span className="font-bold text-[#AAFF28]">M</span>
+            </div>
+            <span className="font-bold text-xl tracking-tight hidden sm:inline-block">
+              <span className="text-white">METE</span>
+              <span className="neon-text-green">FIXA</span>
+            </span>
+          </div>
           
           <a 
             href="https://www.instagram.com/_metefixaa/" 

@@ -34,9 +34,16 @@ const EventsPage: FC = () => {
   const handleFormSubmit = async (data: any) => {
     try {
       // Combine date and time into a single Date object for backend
+      const eventDate = new Date(`${data.date}T${data.time}`);
+      
+      // Certifique-se de que a data é válida
+      if (isNaN(eventDate.getTime())) {
+        throw new Error("Data ou hora inválida");
+      }
+      
       const eventData = {
         name: data.name,
-        date: new Date(`${data.date}T${data.time}`).toISOString(),
+        date: eventDate.toISOString(),
         duration: parseInt(data.duration),
         description: data.description || null,
       };
@@ -44,26 +51,27 @@ const EventsPage: FC = () => {
       console.log("Enviando dados do evento:", eventData);
 
       if (editingEvent) {
-        await apiRequest(`/api/events/${editingEvent.id}`, {
+        const updatedEvent = await apiRequest(`/api/events/${editingEvent.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(eventData),
         });
+        console.log("Evento atualizado:", updatedEvent);
         toast({
           title: "Evento atualizado",
           description: "O evento foi atualizado com sucesso.",
         });
       } else {
-        const response = await apiRequest("/api/events", {
+        const newEvent = await apiRequest("/api/events", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(eventData),
         });
-        console.log("Resposta da criação do evento:", response);
+        console.log("Novo evento criado:", newEvent);
         toast({
           title: "Evento criado",
           description: "O evento foi criado com sucesso.",
